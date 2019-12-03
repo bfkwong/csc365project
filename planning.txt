@@ -1,0 +1,36 @@
+USER ORIENTED FEATURES
+
+	- Commands we need
+		○ Allow users to book seats on flights
+		○ Allow users to cancel bookings
+		○ Allow users to search for flights by day, seats type such as:
+			§ Class
+			§ window/aisle
+			§ Number of passenger
+			§ Origin
+			§ Destination
+		○ Allow users to pay for flights with credit card
+		○ Allow users to change reservations
+			§ Upon change, make refund
+
+
+	- Limits we need
+		○ Allow booking until flight is fully booked or must not allow over booking
+		○ Must not allow booking 2 hours or less before flights
+
+
+	- Feature we needs
+		○ System shall display availability of flight on each day
+		○ First/Business/Economy on SOME flights
+		○ Allow payment by valid credit cards
+			§ Credit Card is legit (enough funds)
+			§ Transaction is legit
+		○ Upon reservation the system shall display details of reservation
+		○ Detail shown on cancelation
+		○ System shall display list of reservation by a user past and present
+		○ Prevent Injection Attacks
+
+
+AIRLINE MANAGEMENT FEATURES
+
+	- One thing on spec sheet
