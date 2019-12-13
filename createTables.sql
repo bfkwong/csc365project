@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS Reservations;
 DROP TABLE IF EXISTS Transactions;
 DROP TABLE IF EXISTS Ownerships;
 DROP TABLE IF EXISTS CreditCards;
-DROP TABLE IF EXISTS Seats; 
+DROP TABLE IF EXISTS Seats;
 DROP TABLE IF EXISTS Flights;
 DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS Airlines;
@@ -12,7 +12,6 @@ CREATE TABLE Users (
    id INTEGER NOT NULL AUTO_INCREMENT,
    firstName VARCHAR(50) NOT NULL,
    lastName VARCHAR(50) NOT NULL,
-   address VARCHAR(100) NOT NULL,
    PRIMARY KEY (id)
 );
 
@@ -44,7 +43,7 @@ CREATE TABLE Flights (
 
    FOREIGN KEY (origin) REFERENCES Airports(airportCode),
    FOREIGN KEY (dest) REFERENCES Airports(airportCode),
-   FOREIGN KEY (airline) REFERENCES Airlines(id),
+   FOREIGN KEY (airline) REFERENCES Airlines(id)
 );
 
 CREATE TABLE Seats (
@@ -60,10 +59,13 @@ CREATE TABLE Seats (
   econMiddle INTEGER NOT NULL,
   econAisle INTEGER NOT NULL,
   totalSeats INTEGER NOT NULL,
+  firstCost INTEGER NOT NULL,
+  busCost INTEGER NOT NULL,
+  econCost INTEGER NOT NULL, 
   PRIMARY KEY (flightNo, airline),
 
   FOREIGN KEY (flightNo, airline) REFERENCES Flights(flightNo, airline)
-)
+);
 
 CREATE TABLE CreditCards (
    id INTEGER NOT NULL AUTO_INCREMENT,
