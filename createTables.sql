@@ -15,6 +15,23 @@ CREATE TABLE Users (
    PRIMARY KEY (id)
 );
 
+CREATE TABLE Airlines (
+  id INTEGER NOT NULL AUTO_INCREMENT,
+  airline VARCHAR(50) NOT NULL,
+  abbrv VARCHAR(10) NOT NULL,
+  country VARCHAR(20) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE Airports (
+  city VARCHAR(50) NOT NULL,
+  airportCode VARCHAR(3) NOT NULL,
+  airportName VARCHAR(50) NOT NULL,
+  country VARCHAR(20) NOT NULL,
+  countryAbbrv VARCHAR(10) NOT NULL,
+  PRIMARY KEY(airportCode)
+);
+
 CREATE TABLE Flights (
    flightNo INTEGER NOT NULL,
    airline INTEGER NOT NULL,
@@ -30,29 +47,12 @@ CREATE TABLE Flights (
    dest VARCHAR(3) NOT NULL,
    PRIMARY KEY (flightNo),
 
-   FOREIGN KEY origin REFERENCES Airports(airportCode),
-   FOREIGN KEY dest REFERENCES Airports(airportCode),
-   FOREIGN KEY airline REFERENCES Airlines(id),
+   FOREIGN KEY (origin) REFERENCES Airports(airportCode),
+   FOREIGN KEY (dest) REFERENCES Airports(airportCode),
+   FOREIGN KEY (airline) REFERENCES Airlines(id),
 
    CONSTRAINT checkSeats CHECK (totalSeats = firstCount + busCount + econCount AND totalSeats >= windowCount + aisleCount)
 );
-
-CREATE TABLE Airlines (
-  id INTEGER NOT NULL AUTO_INCREMENT,
-  airline VARCHAR(50) NOT NULL,
-  abbrv VARCHAR(10) NOT NULL,
-  country VARCHAR(20) NOT NULL
-  PRIMARY KEY (id)
-)
-
-CREATE TABLE Airports
-  city VARCHAR(50) NOT NULL,
-  airportCode VARCHAR(3) NOT NULL,
-  airportName VARCHAR(50) NOT NULL,
-  country VARCHAR(20) NOT NULL,
-  countryAbbrv VARCHAR(10) NOT NULL,
-  PRIMARY KEY(airportCode)
-)
 
 CREATE TABLE CreditCards (
    id INTEGER NOT NULL AUTO_INCREMENT,
