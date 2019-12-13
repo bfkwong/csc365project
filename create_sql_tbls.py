@@ -1,21 +1,29 @@
-import pandas as pd
 import os
 
 def main():
     for file in os.listdir("./data"):
         tbl_name = file.split(".")[0]
 
-        df_tbl = pd.read_csv("./data/"+ file)
-        index = df_tbl.columns
+        with open("./sql_data/table.sql", "a") as w_file:
+            with open("./data/" + file, "r") as f_obj:
+                statements = []
 
-        for index, row in df_tbl.iterrows():
-            statement = "INSERT INTO {table} VALUES ({values})".format(
-                table = tbl_name,
-                values =  ", ".join([str(x) for x in row])
-            )
-            print(statement)
-            break
-        break
+                f_obj.readline()
+                data = f_obj.read().split("\n")
+
+                for line in data:
+                    if line != "":
+                        statement = "INSERT INTO {table} VALUES ({values});".format(
+                            table = tbl_name,
+                            values =  line
+                        )
+                        statements.append(statement)
+
+                w_file.write("\n".join(statements))
+
+
+
+
 
 
 

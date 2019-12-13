@@ -1,0 +1,4 @@
+INSERT INTO Ownerships VALUES (1,2);
+INSERT INTO Ownerships VALUES (1,5);
+INSERT INTO Ownerships VALUES (3,1);
+INSERT INTO Ownerships VALUES (3,7);
