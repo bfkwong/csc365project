@@ -18,8 +18,8 @@ CREATE TABLE Users (
 CREATE TABLE Flights (
    flightNo INTEGER NOT NULL,
    airline INTEGER NOT NULL,
-   departureTime DATE NOT NULL,
-   arrivalTime DATE NOT NULL,
+   departureTime DATETIME NOT NULL,
+   arrivalTime DATETIME NOT NULL,
    firstCount SMALLINT NOT NULL,
    busCount SMALLINT NOT NULL,
    econCount SMALLINT NOT NULL,
@@ -77,7 +77,7 @@ CREATE TABLE Transactions (
    id INTEGER NOT NULL AUTO_INCREMENT,
    ownershipID INTEGER NOT NULL,
    amount INTEGER NOT NULL,
-   time DATE NOT NULL,
+   time DATETIME NOT NULL,
    PRIMARY KEY (id),
    FOREIGN KEY (ownershipID) REFERENCES Ownerships(id),
    CONSTRAINT checkAmopuntPositive CHECK (amount >= 0)
