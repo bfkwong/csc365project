@@ -2,6 +2,7 @@ DROP TABLE IF EXISTS Reservations;
 DROP TABLE IF EXISTS Transactions;
 DROP TABLE IF EXISTS Ownerships;
 DROP TABLE IF EXISTS CreditCards;
+DROP TABLE IF EXISTS Seats; 
 DROP TABLE IF EXISTS Flights;
 DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS Airlines;
@@ -37,12 +38,6 @@ CREATE TABLE Flights (
    airline INTEGER NOT NULL,
    departureTime DATETIME NOT NULL,
    arrivalTime DATETIME NOT NULL,
-   firstCount SMALLINT NOT NULL,
-   busCount SMALLINT NOT NULL,
-   econCount SMALLINT NOT NULL,
-   windowCount SMALLINT NOT NULL,
-   aisleCount SMALLINT NOT NULL,
-   totalSeats SMALLINT NOT NULL,
    origin VARCHAR(3) NOT NULL,
    dest VARCHAR(3) NOT NULL,
    PRIMARY KEY (flightNo, airline),
@@ -50,9 +45,25 @@ CREATE TABLE Flights (
    FOREIGN KEY (origin) REFERENCES Airports(airportCode),
    FOREIGN KEY (dest) REFERENCES Airports(airportCode),
    FOREIGN KEY (airline) REFERENCES Airlines(id),
-
-   CONSTRAINT checkSeats CHECK (totalSeats = firstCount + busCount + econCount AND totalSeats >= windowCount + aisleCount)
 );
+
+CREATE TABLE Seats (
+  flightNo INTEGER NOT NULL,
+  airline INTEGER NOT NULL,
+  firstWindow INTEGER NOT NULL,
+  firstMiddle INTEGER NOT NULL,
+  firstAisle INTEGER NOT NULL,
+  busWindow INTEGER NOT NULL,
+  busMiddle INTEGER NOT NULL,
+  busAisle INTEGER NOT NULL,
+  econWindow INTEGER NOT NULL,
+  econMiddle INTEGER NOT NULL,
+  econAisle INTEGER NOT NULL,
+  totalSeats INTEGER NOT NULL,
+  PRIMARY KEY (flightNo, airline),
+
+  FOREIGN KEY (flightNo, airline) REFERENCES Flights(flightNo, airline)
+)
 
 CREATE TABLE CreditCards (
    id INTEGER NOT NULL AUTO_INCREMENT,
@@ -84,13 +95,14 @@ CREATE TABLE Transactions (
 );
 
 CREATE TABLE Reservations (
-   transactionID INTEGER NOT NULL AUTO_INCREMENT,
+   id INTEGER NOT NULL,
+   transactionID INTEGER NOT NULL,
    flightNo INTEGER NOT NULL,
    airline INTEGER NOT NULL,
    classType ENUM('First', 'Business', 'Economy') NOT NULL,
    seatType ENUM('Window', 'Aisle', 'Middle') NOT NULL,
    active BOOLEAN NOT NULL,
-   PRIMARY KEY (transactionID, flightNo),
+   PRIMARY KEY (id),
    FOREIGN KEY (transactionID) REFERENCES Transactions(id),
    FOREIGN KEY (flightNo, airline) REFERENCES Flights(flightNo, airline)
 );
