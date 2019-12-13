@@ -18,7 +18,7 @@ CREATE TABLE Users (
 CREATE TABLE Airlines (
   id INTEGER NOT NULL AUTO_INCREMENT,
   airline VARCHAR(50) NOT NULL,
-  abbrv VARCHAR(10) NOT NULL,
+  abbrv VARCHAR(20) NOT NULL,
   country VARCHAR(20) NOT NULL,
   PRIMARY KEY (id)
 );
@@ -45,7 +45,7 @@ CREATE TABLE Flights (
    totalSeats SMALLINT NOT NULL,
    origin VARCHAR(3) NOT NULL,
    dest VARCHAR(3) NOT NULL,
-   PRIMARY KEY (flightNo),
+   PRIMARY KEY (flightNo, airline),
 
    FOREIGN KEY (origin) REFERENCES Airports(airportCode),
    FOREIGN KEY (dest) REFERENCES Airports(airportCode),
@@ -86,10 +86,11 @@ CREATE TABLE Transactions (
 CREATE TABLE Reservations (
    transactionID INTEGER NOT NULL AUTO_INCREMENT,
    flightNo INTEGER NOT NULL,
+   airline INTEGER NOT NULL,
    classType ENUM('First', 'Business', 'Economy') NOT NULL,
    seatType ENUM('Window', 'Aisle', 'Middle') NOT NULL,
    active BOOLEAN NOT NULL,
    PRIMARY KEY (transactionID, flightNo),
    FOREIGN KEY (transactionID) REFERENCES Transactions(id),
-   FOREIGN KEY (flightNo) REFERENCES Flights(flightNo)
+   FOREIGN KEY (flightNo, airline) REFERENCES Flights(flightNo, airline)
 );
